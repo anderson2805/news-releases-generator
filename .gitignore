@@ -1,0 +1,7 @@
+notebook
+model/universal-sentence-encoder
+model/universal-sentence-encoder-large/5/assets
+.vscode
+model/universal-sentence-encoder-large/5/saved_model.pb
+model/universal-sentence-encoder-large/5/variables
+presentation
