@@ -2,7 +2,7 @@
 import os.path
 if not os.path.isfile('./config.ini'):
     import streamlit as st
-    openai_api_key = st.secrets['cg_api_key']
+    openai_api_key = st.secrets['CG_API_KEY']
 else:
     import configparser as cp
     # Read config file
