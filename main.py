@@ -17,11 +17,10 @@ if "grid_key" not in st.session_state:
     st.session_state.grid_key = 0
 
 st.header("NR-GPT 📃")
-st.markdown("""To generate draft reports of news release.
+st.markdown("""To generate draft news release reports, we will search for the most relevant news releases to use as templates based on the title of the news release. GPT will learn from the style of the related news releases and determine which information needs to be included in the report.
 
-Based on a news release title, we will look for most related news release to template from.
-
-GPT will learn from the style of related NRs and also know what information is needed to be included in the report. """)
+Once the user provides the necessary information, GPT will generate a draft news release.
+""")
 
 seed_title = st.text_input('Enter a title of the news release you are working on:', key = 'seed_title', value=st.session_state.get('seed_title', ''))
 st.button('Search', key='search')
@@ -142,7 +141,7 @@ if type(st.session_state.get('nrs_repository_df', False))==pd.DataFrame:
     st.session_state['prev_selection'] = len(grid_response.selected_rows)
     
     prompt1 = st.text_area('Prompt 1: To get information needed to generate the NR.', height=500, key='prompt1', disabled = False)
-    if st.button('Send', key='send1') or st.session_state.get('prompt1', False):
+    if st.button('Analyze Related News Releases', key='send1') or st.session_state.get('prompt1', False):
         if (not st.session_state.get('prompt2', False) or st.session_state.get('send1', False)):
             with st.spinner('Calling ChatGPT... seeking information needed to generate report...'):
                 st.session_state['info_required'] = get_chat_response(prompt1)
@@ -151,7 +150,7 @@ if type(st.session_state.get('nrs_repository_df', False))==pd.DataFrame:
         prompt2 = st.text_area('Prompt 2: Add information to generate the NR.', height=500, key='prompt2', disabled = False)
         st.session_state['prompt2_edited'] = prompt2
     if (st.session_state.get('prompt2', False)):
-        if st.button('Send', key='send2'):
+        if st.button('Generate Draft Report', key='send2'):
             st.session_state['send2_save'] = True
             with st.spinner('Calling ChatGPT... Generating report...'):
                 st.session_state['draft_report'] = get_chat_response(prompt2)
