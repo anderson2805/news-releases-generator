@@ -5,3 +5,5 @@ model/universal-sentence-encoder-large/5/assets
 model/universal-sentence-encoder-large/5/saved_model.pb
 model/universal-sentence-encoder-large/5/variables
 presentation
+config.ini
+src/__pycache__
