@@ -1,8 +1,14 @@
-import configparser as cp
-# Read config file
-config = cp.ConfigParser()
-config.read('./config.ini')
-openai_api_key = config['OPENAI']['API_KEY']
+# Check if config.ini exist
+import os.path
+if not os.path.isfile('./config.ini'):
+    import streamlit as st
+    openai_api_key = st.secrets['cg_api_key']
+else:
+    import configparser as cp
+    # Read config file
+    config = cp.ConfigParser()
+    config.read('./config.ini')
+    openai_api_key = config['OPENAI']['API_KEY']
 
 import os
 import openai
