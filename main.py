@@ -137,21 +137,31 @@ if type(st.session_state.get('nrs_repository_df', False))==pd.DataFrame:
     st.markdown('---')
     if st.session_state.get('prev_selection', 0) != len(grid_response.selected_rows):
         st.session_state['prompt1'] = create_prompt_info(seed_title, grid_response.selected_rows)
-    
+
     st.session_state['prev_selection'] = len(grid_response.selected_rows)
     
-    prompt1 = st.text_area('Prompt 1: To get information needed to generate the NR.', height=500, key='prompt1', disabled = False)
-    if st.button('Analyze Related News Releases', key='send1') or st.session_state.get('prompt1', False):
-        if (not st.session_state.get('prompt2', False) or st.session_state.get('send1', False)):
+    with st.form("form_1"):
+        prompt1 = st.text_area('Prompt 1: To get information needed to generate the NR.', height=500, key='prompt1', disabled = False)
+        send1_1, blank1, send1_2 = st.columns([5,1,1])
+        with send1_2:
+            send1 = st.form_submit_button('Analyze Related News Releases')
+        if send1:
             with st.spinner('Calling ChatGPT... seeking information needed to generate report...'):
                 st.session_state['info_required'] = get_chat_response(prompt1)
-        if st.session_state.get('send1', False):
-            st.session_state['prompt2'] = create_prompt_report(seed_title, st.session_state['info_required'], grid_response.selected_rows)
-        prompt2 = st.text_area('Prompt 2: Add information to generate the NR.', height=500, key='prompt2', disabled = False)
-        st.session_state['prompt2_edited'] = prompt2
-    if (st.session_state.get('prompt2', False)):
-        if st.button('Generate Draft Report', key='send2'):
-            st.session_state['send2_save'] = True
-            with st.spinner('Calling ChatGPT... Generating report...'):
-                st.session_state['draft_report'] = get_chat_response(prompt2)
-            st.text_area('Draft Report:', height=500, key='draft_report', disabled = False)
+                st.session_state['prompt2'] = create_prompt_report(seed_title, st.session_state['info_required'], grid_response.selected_rows)
+
+    with st.form("form_2"):
+        if send1 or st.session_state.get('prompt2', False) or st.session_state.get('send2_save', False):
+            prompt2 = st.text_area('Prompt 2: Add information to generate the NR.', height=500, key='prompt2', disabled = False)
+            send2_1, blank2, send2_2 = st.columns([5,1,1])
+            with send2_2:
+                st.write('\n \n ')
+                send2 = st.form_submit_button('Generate Draft Report', use_container_width=True)
+            with send2_1:
+                st.slider('Temperature', min_value=0.0, max_value=1.0, value=0.0, step=0.1, key='temperature')
+            if send2:
+                st.session_state['send2_save'] = True
+                with st.spinner('Calling ChatGPT... Generating report...'):
+                    st.session_state['draft_report'] = get_chat_response(prompt2, st.session_state.temperature)
+            if st.session_state.get('draft_report'):
+                st.text_area('Draft Report:', height=500, key='draft_report', disabled = False)

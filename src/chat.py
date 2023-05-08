@@ -19,12 +19,12 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 # Call chatgpt 3.5
-def get_chat_response(prompt: str):
+def get_chat_response(prompt: str, temperature: float = 0):
     """
     Call chatgpt 3.5
     """
     response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo", temperature = 0,
+    model="gpt-3.5-turbo", temperature = temperature,
     messages=[
             {"role": "system", "content": "You are an analyst."},
             {"role": "user", "content": prompt}
