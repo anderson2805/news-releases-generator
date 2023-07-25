@@ -158,7 +158,7 @@ if type(st.session_state.get('nrs_repository_df', False))==pd.DataFrame:
                 st.write('\n \n ')
                 send2 = st.form_submit_button('Generate Draft Report', use_container_width=True)
             with send2_1:
-                st.slider('Temperature', min_value=0.0, max_value=1.0, value=0.0, step=0.1, key='temperature')
+                st.slider('Temperature', min_value=0.0, max_value=2.0, value=0.0, step=0.1, key='temperature')
             if send2:
                 st.session_state['send2_save'] = True
                 with st.spinner('Calling ChatGPT... Generating report...'):
