@@ -13,6 +13,7 @@ st.set_page_config(
     page_icon="📃",
 )
 
+
 if "grid_key" not in st.session_state:
     st.session_state.grid_key = 0
 
