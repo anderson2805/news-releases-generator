@@ -29,7 +29,7 @@ def create_prompt_report(seedtitle: str, nr_info: str, docs: list):
 Title: {doc['title']}
 Content: {doc['article']}
         """
-    prompt = f'''As a Singaporean analyst, I am currently drafting a news release about "{seedtitle}". 
+    prompt = f'''As a Singaporean analyst, I am currently drafting a news release about "{seedtitle}".
 
 Information I have:
 {nr_info}
@@ -38,4 +38,5 @@ Writing style to follow:{similar_docs}
 
 As a Singaporean analyst, draft a public news release about "{seedtitle}", using the writing style provided and relying on the information available. I will write:
 '''
+    
     return prompt
