@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from src.loader import load_nrs
 from src.semantic_search import get_similar_score, get_embeddings, get_similar_indices
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, JsCode, ColumnsAutoSizeMode
+from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, ColumnsAutoSizeMode
 from src.generate import create_prompt_info, create_prompt_report
 from src.chat import get_chat_response
 nrs_repository = load_nrs()
