@@ -39,7 +39,7 @@ Information I have:
 Writing style to follow:{similar_docs}
 
 
-As a Singaporean analyst, draft a public news release about the title: "{seedtitle}", using the writing style provided and relying on the information available. I will write:
+As a Singaporean analyst, draft a single public news release about the title: "{seedtitle}", using the writing style provided and relying on the information available. I will write:
 '''
     
     return prompt
